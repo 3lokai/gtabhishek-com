@@ -6,6 +6,7 @@ import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
 import {
   MobileNav,
+  MobileNavDropdown,
   MobileNavHeader,
   MobileNavMenu,
   MobileNavToggle,
@@ -18,7 +19,15 @@ import { cn } from "@/lib/utils";
 
 const navigationItems = [
   { name: "Home", link: "/" },
-  { name: "Vibe-Coding", link: "/vibe-coding" },
+  {
+    name: "Tech Learnings",
+    link: "/vibe-coding",
+    children: [
+      { name: "Local Setup", link: "/vibe-coding/local-setup" },
+      { name: "Local LLMs", link: "/vibe-coding/local-llms" },
+      { name: "Projects", link: "/vibe-coding/projects" },
+    ],
+  },
   { name: "Marketing", link: "/marketing" },
   { name: "Blog", link: "/blog" },
   { name: "About me", link: "/about-me" },
@@ -77,16 +86,27 @@ export function Header() {
           isOpen={mobileMenuOpen}
           onClose={() => setMobileMenuOpen(false)}
         >
-          {navigationItems.map((item) => (
-            <Link
-              className="text-muted-foreground hover:text-foreground"
-              href={item.link}
-              key={item.link}
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.name}
-            </Link>
-          ))}
+          {navigationItems.map((item) => {
+            const hasDropdown = item.children && item.children.length > 0;
+            return (
+              <div className="w-full" key={item.link}>
+                {hasDropdown ? (
+                  <MobileNavDropdown
+                    item={item}
+                    onItemClick={() => setMobileMenuOpen(false)}
+                  />
+                ) : (
+                  <Link
+                    className="block text-muted-foreground hover:text-foreground"
+                    href={item.link}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                )}
+              </div>
+            );
+          })}
         </MobileNavMenu>
       </MobileNav>
     </Navbar>

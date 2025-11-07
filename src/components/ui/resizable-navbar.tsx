@@ -1,5 +1,5 @@
 "use client";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
 import {
   AnimatePresence,
   motion,
@@ -22,11 +22,14 @@ type NavBodyProps = {
   visible?: boolean;
 };
 
+type NavItem = {
+  name: string;
+  link: string;
+  children?: NavItem[];
+};
+
 type NavItemsProps = {
-  items: {
-    name: string;
-    link: string;
-  }[];
+  items: NavItem[];
   className?: string;
   onItemClick?: () => void;
 };
@@ -109,8 +112,150 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => (
   </motion.div>
 );
 
+type NavItemComponentProps = {
+  item: NavItem;
+  idx: number;
+  hovered: number | null;
+  openDropdown: number | null;
+  isActive: (link: string) => boolean;
+  hasActiveChild: (item: NavItem) => boolean;
+  onHover: (idx: number) => void;
+  onLeave: () => void;
+  onItemClick?: () => void;
+};
+
+const NavItemComponent = ({
+  item,
+  idx,
+  hovered,
+  openDropdown,
+  isActive,
+  hasActiveChild,
+  onHover,
+  onLeave,
+  onItemClick,
+}: NavItemComponentProps) => {
+  const active = isActive(item.link) || hasActiveChild(item);
+  const showPill = hovered === idx || (active && hovered === null);
+  const hasDropdown = item.children && item.children.length > 0;
+  const isDropdownOpen = openDropdown === idx;
+
+  const handleMouseEnter = () => {
+    onHover(idx);
+  };
+
+  const renderButton = () => (
+    <button
+      className={cn(
+        "relative flex items-center gap-1 px-4 py-2 transition-colors",
+        active
+          ? "font-medium text-accent-foreground"
+          : "text-muted-foreground hover:text-accent-foreground"
+      )}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onLeave}
+      type="button"
+    >
+      {showPill && (
+        <motion.div
+          className={cn(
+            "absolute inset-0 h-full w-full rounded-full",
+            active ? "bg-accent/80" : "bg-accent/40"
+          )}
+          layoutId="hovered"
+        />
+      )}
+      <span className="relative z-20">{item.name}</span>
+      <ChevronDown
+        className={cn(
+          "relative z-20 h-3 w-3 transition-transform",
+          isDropdownOpen && "rotate-180"
+        )}
+      />
+    </button>
+  );
+
+  const renderLink = () => (
+    <Link
+      className={cn(
+        "relative px-4 py-2 transition-colors",
+        active
+          ? "font-medium text-accent-foreground"
+          : "text-muted-foreground hover:text-accent-foreground"
+      )}
+      href={item.link}
+      onClick={onItemClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={onLeave}
+    >
+      {showPill && (
+        <motion.div
+          className={cn(
+            "absolute inset-0 h-full w-full rounded-full",
+            active ? "bg-accent/80" : "bg-accent/40"
+          )}
+          layoutId="hovered"
+        />
+      )}
+      <span className="relative z-20">{item.name}</span>
+    </Link>
+  );
+
+  return (
+    <div className="relative" key={item.link}>
+      {hasDropdown ? renderButton() : renderLink()}
+
+      {hasDropdown && (
+        <AnimatePresence>
+          {isDropdownOpen && (
+            <motion.div
+              animate={{ opacity: 1, y: 0 }}
+              className="-translate-x-1/2 absolute top-full left-1/2 z-50 mt-2 min-w-[200px] rounded-xl bg-background/90 px-2 py-2 shadow-lg backdrop-blur-lg dark:bg-background/90"
+              exit={{ opacity: 0, y: -10 }}
+              initial={{ opacity: 0, y: -10 }}
+              onMouseEnter={() => onHover(idx)}
+              onMouseLeave={onLeave}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 30,
+              }}
+            >
+              {item.children?.map((child) => {
+                const childActive = isActive(child.link);
+                return (
+                  <Link
+                    className={cn(
+                      "relative block rounded-full px-4 py-2 text-sm transition-colors",
+                      childActive
+                        ? "font-medium text-accent-foreground"
+                        : "text-muted-foreground hover:bg-accent/40 hover:text-accent-foreground"
+                    )}
+                    href={child.link}
+                    key={child.link}
+                    onClick={onItemClick}
+                  >
+                    {childActive && (
+                      <motion.div
+                        className="absolute inset-0 h-full w-full rounded-full bg-accent/80"
+                        layoutId="dropdown-active"
+                      />
+                    )}
+                    <span className="relative z-20">{child.name}</span>
+                  </Link>
+                );
+              })}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      )}
+    </div>
+  );
+};
+
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [openDropdown, setOpenDropdown] = useState<number | null>(null);
   const pathname = usePathname();
 
   const isActive = (link: string) => {
@@ -120,43 +265,48 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     return pathname.startsWith(link);
   };
 
+  const hasActiveChild = (item: NavItem): boolean => {
+    if (!item.children) {
+      return false;
+    }
+    return item.children.some((child) => isActive(child.link));
+  };
+
+  const handleHover = (idx: number) => {
+    setHovered(idx);
+    const item = items[idx];
+    if (item.children && item.children.length > 0) {
+      setOpenDropdown(idx);
+    }
+  };
+
+  const handleLeave = () => {
+    setHovered(null);
+    setOpenDropdown(null);
+  };
+
   return (
     <motion.div
       className={cn(
         "absolute inset-0 hidden flex-1 flex-row items-center justify-center space-x-2 font-medium text-muted-foreground text-sm transition duration-200 hover:text-foreground lg:flex lg:space-x-2",
         className
       )}
-      onMouseLeave={() => setHovered(null)}
+      onMouseLeave={handleLeave}
     >
-      {items.map((item, idx) => {
-        const active = isActive(item.link);
-        const showPill = hovered === idx || (active && hovered === null);
-        return (
-          <Link
-            className={cn(
-              "relative px-4 py-2 transition-colors",
-              active
-                ? "font-medium text-accent-foreground"
-                : "text-muted-foreground hover:text-accent-foreground"
-            )}
-            href={item.link}
-            key={item.link}
-            onClick={onItemClick}
-            onMouseEnter={() => setHovered(idx)}
-          >
-            {showPill && (
-              <motion.div
-                className={cn(
-                  "absolute inset-0 h-full w-full rounded-full",
-                  active ? "bg-accent/80" : "bg-accent/40"
-                )}
-                layoutId="hovered"
-              />
-            )}
-            <span className="relative z-20">{item.name}</span>
-          </Link>
-        );
-      })}
+      {items.map((item, idx) => (
+        <NavItemComponent
+          hasActiveChild={hasActiveChild}
+          hovered={hovered}
+          idx={idx}
+          isActive={isActive}
+          item={item}
+          key={item.link}
+          onHover={handleHover}
+          onItemClick={onItemClick}
+          onLeave={handleLeave}
+          openDropdown={openDropdown}
+        />
+      ))}
     </motion.div>
   );
 };
@@ -235,6 +385,79 @@ export const MobileNavToggle = ({
   ) : (
     <Menu className="text-foreground" onClick={onClick} />
   );
+
+type MobileNavDropdownProps = {
+  item: NavItem;
+  onItemClick?: () => void;
+};
+
+export const MobileNavDropdown = ({
+  item,
+  onItemClick,
+}: MobileNavDropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isActive = (link: string) => {
+    if (link === "/") {
+      return pathname === "/";
+    }
+    return pathname.startsWith(link);
+  };
+
+  const hasActiveChild = item.children?.some((child) => isActive(child.link));
+  const active = isActive(item.link) || hasActiveChild;
+
+  return (
+    <div className="w-full">
+      <button
+        className={cn(
+          "flex w-full items-center justify-between text-muted-foreground hover:text-foreground",
+          active && "font-medium text-accent-foreground"
+        )}
+        onClick={() => setIsOpen(!isOpen)}
+        type="button"
+      >
+        <span>{item.name}</span>
+        <ChevronDown
+          className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")}
+        />
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            animate={{ opacity: 1, height: "auto" }}
+            className="mt-2 space-y-2 pl-4"
+            exit={{ opacity: 0, height: 0 }}
+            initial={{ opacity: 0, height: 0 }}
+            transition={{
+              type: "spring",
+              stiffness: 300,
+              damping: 30,
+            }}
+          >
+            {item.children?.map((child) => {
+              const childActive = isActive(child.link);
+              return (
+                <Link
+                  className={cn(
+                    "block text-muted-foreground text-sm hover:text-foreground",
+                    childActive && "font-medium text-accent-foreground"
+                  )}
+                  href={child.link}
+                  key={child.link}
+                  onClick={onItemClick}
+                >
+                  {child.name}
+                </Link>
+              );
+            })}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 export const NavbarButton = ({
   href,
