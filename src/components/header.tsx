@@ -1,59 +1,94 @@
 "use client";
 
-import { Moon, Sun } from "lucide-react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { useState } from "react";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
+import { buttonVariants } from "@/components/ui/button";
+import {
+  MobileNav,
+  MobileNavHeader,
+  MobileNavMenu,
+  MobileNavToggle,
+  NavBody,
+  Navbar,
+  NavbarButton,
+  NavItems,
+} from "@/components/ui/resizable-navbar";
+import { cn } from "@/lib/utils";
+
+const navigationItems = [
+  { name: "Home", link: "/" },
+  { name: "Vibe-Coding", link: "/vibe-coding" },
+  { name: "Marketing", link: "/marketing" },
+  { name: "Blog", link: "/blog" },
+  { name: "About me", link: "/about-me" },
+];
 
 export function Header() {
-  const { theme, setTheme } = useTheme();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto flex h-14 items-center justify-between px-4">
-        {/* Logo */}
-        <div className="flex items-center">
-          <Link className="flex items-center space-x-2" href="/">
-            <span className="font-bold">Next.js Starter</span>
-          </Link>
+    <Navbar className="top-0">
+      <NavBody>
+        <Link
+          className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 font-normal text-foreground text-sm"
+          href="/"
+        >
+          <span className="font-bold">GT</span>
+        </Link>
+        <NavItems items={navigationItems} />
+        <div className="relative z-20 flex items-center gap-2">
+          <NavbarButton as={Link} href="/contact" variant="primary">
+            Contact me
+          </NavbarButton>
+          <AnimatedThemeToggler
+            className={cn(buttonVariants({ size: "icon", variant: "ghost" }))}
+          />
         </div>
+      </NavBody>
 
-        {/* Navigation */}
-        <nav className="flex items-center space-x-4">
-          <div className="hidden items-center space-x-6 md:flex">
-            <Link
-              className="font-medium text-sm transition-colors hover:text-primary"
-              href="/"
+      <MobileNav>
+        <MobileNavHeader>
+          <Link
+            className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 font-normal text-foreground text-sm"
+            href="/"
+          >
+            <span className="font-bold">GT</span>
+          </Link>
+          <div className="flex items-center gap-2">
+            <NavbarButton
+              as={Link}
+              className="px-3 py-1.5 text-xs"
+              href="/contact"
+              variant="primary"
             >
-              Home
-            </Link>
-            <Link
-              className="font-medium text-sm transition-colors hover:text-primary"
-              href="/dashboard"
-            >
-              Dashboard
-            </Link>
+              Contact me
+            </NavbarButton>
+            <AnimatedThemeToggler
+              className={cn(buttonVariants({ size: "icon", variant: "ghost" }))}
+            />
+            <MobileNavToggle
+              isOpen={mobileMenuOpen}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            />
           </div>
-
-          {/* Actions */}
-          <div className="flex items-center space-x-2">
-            <Button asChild size="sm" variant="outline">
-              <Link href="/login">Login</Link>
-            </Button>
-            <Button
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              size="icon"
-              variant="ghost"
+        </MobileNavHeader>
+        <MobileNavMenu
+          isOpen={mobileMenuOpen}
+          onClose={() => setMobileMenuOpen(false)}
+        >
+          {navigationItems.map((item) => (
+            <Link
+              className="text-muted-foreground hover:text-foreground"
+              href={item.link}
+              key={item.link}
+              onClick={() => setMobileMenuOpen(false)}
             >
-              <Sun className="dark:-rotate-90 h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:scale-0" />
-              <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-              <span className="sr-only">Toggle theme</span>
-            </Button>
-          </div>
-        </nav>
-      </div>
-      <Separator />
-    </header>
+              {item.name}
+            </Link>
+          ))}
+        </MobileNavMenu>
+      </MobileNav>
+    </Navbar>
   );
 }

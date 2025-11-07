@@ -15,32 +15,18 @@
  */
 
 export const queryKeys = {
-  // User-related queries
-  user: {
-    all: ["user"] as const,
-    profile: (id: string) => ["user", "profile", id] as const,
-    settings: (id: string) => ["user", "settings", id] as const,
-  },
-
   // Posts (example)
   posts: {
     all: ["posts"] as const,
     list: (filters?: Record<string, any>) =>
       ["posts", "list", filters] as const,
     detail: (id: string) => ["posts", "detail", id] as const,
-    byUser: (userId: string) => ["posts", "byUser", userId] as const,
   },
 
   // Comments (example)
   comments: {
     all: ["comments"] as const,
     byPost: (postId: string) => ["comments", "byPost", postId] as const,
-  },
-
-  // Auth-related queries
-  auth: {
-    session: ["auth", "session"] as const,
-    user: ["auth", "user"] as const,
   },
 } as const;
 

@@ -1,44 +1,44 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Lora, Plus_Jakarta_Sans, Roboto_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider } from "@/components/providers/auth-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const plusJakartaSans = Plus_Jakarta_Sans({
+  variable: "--font-sans",
   subsets: ["latin"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const robotoMono = Roboto_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+});
+
+const lora = Lora({
+  variable: "--font-serif",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://github.com/3lokai/nextjs-starter-gt"),
+  metadataBase: new URL("https://gtabhishek.com"),
   title: {
-    default: "Next.js Starter",
-    template: "%s | Next.js Starter",
+    default: "GT Abhishek",
+    template: "%s | GT Abhishek",
   },
   description:
-    "A modern Next.js starter with TypeScript, Tailwind CSS, shadcn/ui, and Supabase",
+    "Personal branding website for GT Abhishek - Developer, Designer, and Creative Professional",
   keywords: [
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Tailwind CSS",
-    "shadcn/ui",
-    "Supabase",
-    "starter",
-    "template",
-    "boilerplate",
+    "GT Abhishek",
+    "Developer",
+    "Designer",
+    "Portfolio",
+    "Personal Brand",
   ],
-  authors: [{ name: "3lokai" }],
-  creator: "3lokai",
-  publisher: "3lokai",
+  authors: [{ name: "GT Abhishek" }],
+  creator: "GT Abhishek",
+  publisher: "GT Abhishek",
   formatDetection: {
     email: false,
     address: false,
@@ -47,27 +47,27 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://github.com/3lokai/nextjs-starter-gt",
-    siteName: "Next.js Starter",
-    title: "Next.js Starter",
+    url: "https://gtabhishek.com",
+    siteName: "GT Abhishek",
+    title: "GT Abhishek",
     description:
-      "A modern Next.js starter with TypeScript, Tailwind CSS, shadcn/ui, and Supabase",
+      "Personal branding website for GT Abhishek - Developer, Designer, and Creative Professional",
     images: [
       {
-        url: "/api/og?title=Next.js%20Starter&description=A%20modern%20Next.js%20starter%20with%20TypeScript%2C%20Tailwind%20CSS%2C%20shadcn%2Fui%2C%20and%20Supabase",
+        url: "/api/og?title=GT%20Abhishek&description=Developer%2C%20Designer%2C%20and%20Creative%20Professional",
         width: 1200,
         height: 630,
-        alt: "Next.js Starter",
+        alt: "GT Abhishek",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Next.js Starter",
+    title: "GT Abhishek",
     description:
-      "A modern Next.js starter with TypeScript, Tailwind CSS, shadcn/ui, and Supabase",
+      "Personal branding website for GT Abhishek - Developer, Designer, and Creative Professional",
     images: [
-      "/api/og?title=Next.js%20Starter&description=A%20modern%20Next.js%20starter%20with%20TypeScript%2C%20Tailwind%20CSS%2C%20shadcn%2Fui%2C%20and%20Supabase",
+      "/api/og?title=GT%20Abhishek&description=Developer%2C%20Designer%2C%20and%20Creative%20Professional",
     ],
   },
   robots: {
@@ -94,7 +94,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${plusJakartaSans.variable} ${robotoMono.variable} ${lora.variable} antialiased`}
       >
         <ThemeProvider
           attribute="class"
@@ -103,12 +103,10 @@ export default function RootLayout({
           enableSystem
         >
           <QueryProvider>
-            <AuthProvider>
-              <ModalProvider>
-                {children}
-                <Toaster />
-              </ModalProvider>
-            </AuthProvider>
+            <ModalProvider>
+              {children}
+              <Toaster />
+            </ModalProvider>
           </QueryProvider>
         </ThemeProvider>
       </body>

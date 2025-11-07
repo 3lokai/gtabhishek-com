@@ -1,0 +1,173 @@
+"use server";
+
+import { Resend } from "resend";
+import { z } from "zod";
+import { prisma } from "@/lib/prisma";
+import { env } from "../../../env";
+
+const resend = new Resend(env.RESEND_API_KEY);
+
+const contactFormSchema = z.object({
+  name: z.string().min(1, "Name is required").max(100),
+  email: z.string().email("Invalid email address"),
+  message: z
+    .string()
+    .min(10, "Message must be at least 10 characters")
+    .max(1000),
+  honeypot: z.string().max(0, "Spam detected"),
+});
+
+async function sendSlackWebhook(name: string, email: string, message: string) {
+  if (!env.SLACK_WEBHOOK_URL) {
+    return;
+  }
+
+  try {
+    await fetch(env.SLACK_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        text: `New contact form submission from ${name}`,
+        blocks: [
+          {
+            type: "header",
+            text: {
+              type: "plain_text",
+              text: "New Contact Form Submission",
+            },
+          },
+          {
+            type: "section",
+            fields: [
+              {
+                type: "mrkdwn",
+                text: `*Name:*\n${name}`,
+              },
+              {
+                type: "mrkdwn",
+                text: `*Email:*\n<mailto:${email}|${email}>`,
+              },
+            ],
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `*Message:*\n${message}`,
+            },
+          },
+        ],
+      }),
+    });
+  } catch (error) {
+    console.error("Error sending Slack webhook:", error);
+  }
+}
+
+export async function submitContactForm(formData: FormData) {
+  const rawData = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    message: formData.get("message"),
+    honeypot: formData.get("website"), // Honeypot field named "website"
+  };
+
+  const result = contactFormSchema.safeParse(rawData);
+
+  if (!result.success) {
+    const firstError =
+      Array.isArray(result.error.issues) && result.error.issues.length > 0
+        ? result.error.issues[0].message
+        : undefined;
+
+    if (!firstError) {
+      return {
+        success: false,
+        error: "Validation failed",
+      };
+    }
+
+    return {
+      success: false,
+      error: firstError,
+    };
+  }
+
+  const { name, email, message } = result.data;
+
+  try {
+    // Save to database
+    await prisma.contactMessage.create({
+      data: {
+        name,
+        email,
+        message,
+      },
+    });
+
+    // Send email to you (the site owner)
+    await resend.emails.send({
+      from: "GT Abhishek <hello@gtabhishek.com>",
+      to: env.CONTACT_EMAIL,
+      replyTo: email,
+      subject: `New Contact Form Submission from ${name}`,
+      html: `
+        <div style="font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #1a1a1a; border-bottom: 2px solid #8b5cf6; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: 600;">
+            New Contact Form Submission
+          </h2>
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid #e5e7eb;">
+            <p style="margin: 10px 0; color: #374151; font-size: 14px;"><strong style="color: #1a1a1a;">Name:</strong> ${name}</p>
+            <p style="margin: 10px 0; color: #374151; font-size: 14px;"><strong style="color: #1a1a1a;">Email:</strong> <a href="mailto:${email}" style="color: #8b5cf6; text-decoration: none;">${email}</a></p>
+            <p style="margin: 10px 0; color: #374151; font-size: 14px;"><strong style="color: #1a1a1a;">Message:</strong></p>
+            <p style="background: white; padding: 15px; border-radius: 12px; white-space: pre-wrap; color: #1a1a1a; font-size: 14px; line-height: 1.6; margin-top: 10px; border: 1px solid #e5e7eb;">${message}</p>
+          </div>
+          <p style="color: #6b7280; font-size: 12px; margin-top: 20px; line-height: 1.5;">
+            You can reply directly to this email to respond to ${name}.
+          </p>
+        </div>
+      `,
+    });
+
+    // Send confirmation email to the user
+    await resend.emails.send({
+      from: "GT Abhishek <hello@gtabhishek.com>",
+      to: email,
+      subject: "Thank you for contacting me!",
+      html: `
+        <div style="font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+          <h2 style="color: #1a1a1a; border-bottom: 2px solid #8b5cf6; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: 600;">
+            Thank You, ${name}!
+          </h2>
+          <p style="color: #6b7280; line-height: 1.6; font-size: 14px; margin-bottom: 20px;">
+            I've received your message and will get back to you as soon as possible.
+          </p>
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid #e5e7eb;">
+            <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;"><strong>Your Message:</strong></p>
+            <p style="background: white; padding: 15px; border-radius: 12px; white-space: pre-wrap; margin-top: 10px; color: #1a1a1a; font-size: 14px; line-height: 1.6; border: 1px solid #e5e7eb;">${message}</p>
+          </div>
+          <p style="color: #6b7280; line-height: 1.6; margin-top: 20px; font-size: 14px;">
+            Best regards,<br>
+            <strong style="color: #1a1a1a;">GT Abhishek</strong>
+          </p>
+        </div>
+      `,
+    });
+
+    // Send Slack webhook
+    await sendSlackWebhook(name, email, message);
+
+    return {
+      success: true,
+      message: "Thank you for your message! I'll get back to you soon.",
+    };
+  } catch (error) {
+    console.error("Error processing contact form:", error);
+    return {
+      success: false,
+      error: "Failed to send message. Please try again later.",
+    };
+  }
+}

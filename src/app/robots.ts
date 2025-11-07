@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/dashboard/", "/api/"],
+      disallow: ["/api/"],
     },
-    sitemap: "https://github.com/3lokai/nextjs-starter-gt/sitemap.xml",
+    sitemap: "https://gtabhishek.com/sitemap.xml",
   };
 }

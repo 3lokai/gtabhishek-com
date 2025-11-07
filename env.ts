@@ -10,9 +10,20 @@ const envSchema = z.object({
   // Optional Supabase secret key (server-side only)
   SUPABASE_SECRET_KEY: z.string().optional(),
 
+  // Database (Supabase PostgreSQL connection string)
+  // Get this from: Supabase Dashboard → Settings → Database → Connection string → URI
+  DATABASE_URL: z.string().url("Invalid database URL"),
+  // Direct connection URL (for migrations and direct queries)
+  DIRECT_URL: z.string().url("Invalid direct database URL").optional(),
+
   // App configuration
   NEXT_PUBLIC_APP_NAME: z.string().default("Next.js Starter"),
   NEXT_PUBLIC_APP_URL: z.string().min(1).url().optional(),
+
+  // Contact form
+  RESEND_API_KEY: z.string().min(1, "Resend API key is required"),
+  CONTACT_EMAIL: z.string().email("Invalid contact email"),
+  SLACK_WEBHOOK_URL: z.string().url("Invalid Slack webhook URL").optional(),
 
   // Node environment
   NODE_ENV: z
