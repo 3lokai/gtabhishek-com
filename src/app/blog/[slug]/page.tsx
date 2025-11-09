@@ -89,7 +89,7 @@ export default async function BlogPostPage({
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_280px]">
             <article className="max-w-3xl">
               <header className="not-prose mb-12">
-                <h1 className="mb-4 font-bold text-4xl tracking-tight md:text-6xl">
+                <h1 className="heading-1-xl">
                   {post.title}
                 </h1>
                 <p className="mt-4 text-base text-white/60">

@@ -1,5 +1,6 @@
 "use client";
 
+import ExperienceJourney from "@/components/ExperienceJourney";
 import { BentoGrid } from "@/components/homepage/bento-grid";
 import BuildsAndSystems from "@/components/homepage/builds-and-systems";
 import { Hero } from "@/components/homepage/hero";
@@ -10,6 +11,7 @@ export default function Home() {
     <PageShell fullScreen>
       <Hero />
       <BentoGrid />
+      <ExperienceJourney />
       <BuildsAndSystems />
     </PageShell>
   );

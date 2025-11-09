@@ -24,7 +24,7 @@ export default function ContactPage() {
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
         >
           <div className="space-y-2 text-center">
-            <h1 className="font-bold text-4xl tracking-tight md:text-5xl">
+            <h1 className="heading-1-lg">
               Connect with me
             </h1>
             <p className="text-base text-muted-foreground md:text-lg">
