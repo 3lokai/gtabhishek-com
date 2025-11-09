@@ -1,47 +1,80 @@
 "use client";
 
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { Button } from "@/components/ui/button";
 import { journey } from "@/data/journey";
 import { cn } from "@/lib/utils";
 
-// Wheel→horizontal + drag, snap, animated SVG path, focusable cards.
-// Works great in a hero/bento follow-up section.
-
 export default function ExperienceJourney() {
   const railRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Convert vertical wheel to horizontal scroll (the "Apple" feel)
+  const checkScrollability = useCallback(() => {
+    const el = railRef.current;
+    if (!el) {
+      return;
+    }
+
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  }, []);
+
   useEffect(() => {
     const el = railRef.current;
     if (!el) {
       return;
     }
 
-    const onWheel = (e: WheelEvent) => {
-      // ignore ctrl+wheel zoom & touchpads with shift already handled
-      if (e.ctrlKey) {
-        return;
-      }
-      const isHorizontalGesture = Math.abs(e.deltaX) > Math.abs(e.deltaY);
-      // If user is naturally scrolling horizontally, let it be.
-      if (isHorizontalGesture) {
-        return;
-      }
+    checkScrollability();
 
-      e.preventDefault();
-      el.scrollBy({ left: e.deltaY * 1.05, behavior: "smooth" });
+    const handleScroll = () => {
+      checkScrollability();
     };
 
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
-  }, []);
+    const handleResize = () => {
+      checkScrollability();
+    };
+
+    el.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize);
+
+    // Check again after a short delay to account for layout
+    const timeoutId = setTimeout(checkScrollability, 100);
+
+    return () => {
+      el.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+      clearTimeout(timeoutId);
+    };
+  }, [checkScrollability]);
+
+  const scrollLeft = () => {
+    const el = railRef.current;
+    if (!el) {
+      return;
+    }
+    const cardWidth = el.clientWidth * 0.42; // Approximate card width on md breakpoint
+    el.scrollBy({ left: -cardWidth, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    const el = railRef.current;
+    if (!el) {
+      return;
+    }
+    const cardWidth = el.clientWidth * 0.42; // Approximate card width on md breakpoint
+    el.scrollBy({ left: cardWidth, behavior: "smooth" });
+  };
 
   return (
-    <section className="relative mx-auto max-w-[1400px] px-4 py-14 md:py-20">
+    <section className="mx-auto max-w-7xl px-4 py-20 md:py-32">
       <div className="mb-12 text-center md:mb-16">
-        <h2 className="heading-2-lg">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
           Career Journey
         </h2>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">
@@ -50,27 +83,58 @@ export default function ExperienceJourney() {
       </div>
 
       {/* Rail + path */}
-      <section
-        aria-label="Horizontal career journey"
-        className={cn(
-          "relative",
-          "overflow-x-auto overflow-y-hidden",
-          "snap-x snap-mandatory",
-          "scroll-p-6",
-          "no-scrollbar" // hide scrollbar if you have a utility
+      <section aria-label="Horizontal career journey" className="relative">
+        {/* Left navigation button */}
+        {canScrollLeft && (
+          <Button
+            aria-label="Scroll left"
+            className="-translate-y-1/2 absolute top-1/2 left-0 z-30 rounded-full bg-background/80 p-2 shadow-lg backdrop-blur-sm transition-opacity hover:bg-background/90"
+            onClick={scrollLeft}
+            size="icon"
+            type="button"
+            variant="ghost"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </Button>
         )}
-        ref={railRef}
-      >
-        <div className="relative flex min-w-full items-stretch gap-8 pr-6 md:gap-10">
-          {/* Animated path under the cards */}
-          <PathUnderlay count={journey.length} />
 
-          {journey.map((stop, idx) => (
-            <JourneyCard index={idx} key={stop.id} stop={stop} />
-          ))}
+        {/* Right navigation button */}
+        {canScrollRight && (
+          <Button
+            aria-label="Scroll right"
+            className="-translate-y-1/2 absolute top-1/2 right-0 z-30 rounded-full bg-background/80 p-2 shadow-lg backdrop-blur-sm transition-opacity hover:bg-background/90"
+            onClick={scrollRight}
+            size="icon"
+            type="button"
+            variant="ghost"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </Button>
+        )}
 
-          {/* End spacer so last card can center nicely */}
-          <div className="min-w-[10vw]" />
+        <div
+          className={cn(
+            "relative",
+            "overflow-x-auto overflow-y-hidden",
+            "snap-x snap-mandatory",
+            "scroll-p-6",
+            "[scrollbar-width:none]",
+            "[-ms-overflow-style:none]",
+            "[&::-webkit-scrollbar]:hidden"
+          )}
+          ref={railRef}
+        >
+          <div className="relative flex min-w-full items-stretch gap-8 pr-6 md:gap-10">
+            {/* Animated path under the cards */}
+            <PathUnderlay count={journey.length} />
+
+            {journey.map((stop, idx) => (
+              <JourneyCard index={idx} key={stop.id} stop={stop} />
+            ))}
+
+            {/* End spacer so last card can center nicely */}
+            <div className="min-w-[10vw]" />
+          </div>
         </div>
       </section>
     </section>
@@ -89,10 +153,10 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
       className={cn(
         "snap-center",
         "relative w-[78vw] sm:w-[60vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw]",
-        "shrink-0 rounded-2xl border border-white/10",
-        "bg-gradient-to-b from-white/[0.05] to-white/[0.02] backdrop-blur",
+        "shrink-0 rounded-2xl border border-border/50",
+        "bg-gradient-to-b from-card/40 to-card/20 backdrop-blur-sm",
         "p-5 md:p-6",
-        "group transition-all hover:border-primary/30 hover:bg-accent/5 hover:shadow-lg"
+        "group transition-all hover:border-accent hover:bg-accent/5 hover:shadow-lg"
       )}
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       tabIndex={0}
@@ -178,8 +242,9 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
       />
 
       {/* Period tag with glow - positioned top right */}
-      <motion.div
+      <motion.time
         className="glow-text absolute top-5 right-5 z-10 font-medium text-primary/90 text-xs"
+        dateTime={stop.period}
         whileHover={{
           scale: 1.1,
           transition: {
@@ -190,7 +255,7 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
         }}
       >
         {stop.period}
-      </motion.div>
+      </motion.time>
 
       <header className="relative z-10 mb-3">
         <motion.h3
@@ -200,13 +265,13 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
         >
           {stop.company}
         </motion.h3>
-        <motion.div
+        <motion.p
           className="text-primary/90 text-sm md:text-base"
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
           whileHover={{ x: 2 }}
         >
           {stop.role}
-        </motion.div>
+        </motion.p>
       </header>
 
       <ul className="relative z-10 space-y-2 text-muted-foreground text-sm leading-relaxed md:text-[0.95rem]">
