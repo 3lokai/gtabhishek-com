@@ -23,7 +23,7 @@ export default function Demo() {
       <div className="mx-auto max-w-4xl space-y-8">
         {/* Header */}
         <div className="space-y-4 text-center">
-          <h1 className="heading-1">GT Abhishek</h1>
+          <h1 className="font-bold text-4xl tracking-tight">GT Abhishek</h1>
           <p className="text-muted-foreground text-xl">
             Developer, Designer, and Creative Professional
           </p>
@@ -132,7 +132,7 @@ export default function Demo() {
           <CardContent>
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               <div className="space-y-2">
-                <h4 className="heading-4">Frontend</h4>
+                <h4 className="font-semibold">Frontend</h4>
                 <ul className="space-y-1 text-muted-foreground text-sm">
                   <li>• Next.js 15</li>
                   <li>• React 19</li>
@@ -141,7 +141,7 @@ export default function Demo() {
                 </ul>
               </div>
               <div className="space-y-2">
-                <h4 className="heading-4">UI Components</h4>
+                <h4 className="font-semibold">UI Components</h4>
                 <ul className="space-y-1 text-muted-foreground text-sm">
                   <li>• shadcn/ui</li>
                   <li>• Radix UI</li>
@@ -150,7 +150,7 @@ export default function Demo() {
                 </ul>
               </div>
               <div className="space-y-2">
-                <h4 className="heading-4">Backend</h4>
+                <h4 className="font-semibold">Backend</h4>
                 <ul className="space-y-1 text-muted-foreground text-sm">
                   <li>• Supabase</li>
                   <li>• PostgreSQL</li>
@@ -158,7 +158,7 @@ export default function Demo() {
                 </ul>
               </div>
               <div className="space-y-2">
-                <h4 className="heading-4">Tools</h4>
+                <h4 className="font-semibold">Tools</h4>
                 <ul className="space-y-1 text-muted-foreground text-sm">
                   <li>• Biome</li>
                   <li>• Ultracite</li>

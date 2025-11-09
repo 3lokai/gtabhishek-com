@@ -161,7 +161,7 @@ export default function BuildsAndSystems() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 md:py-32" id="systems">
       <div className="mb-12 text-center md:mb-16">
-        <h2 className="heading-2-lg">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
           Builds & Systems
         </h2>
         <p className="mt-4 text-base text-muted-foreground md:text-lg">

@@ -1,5 +1,5 @@
 # AI Benchmark Dashboard - Single Page PRD
-**URL**: gtabhishek.com/vibe-coding/local-ai
+**URL**: gtabhishek.com/benchmarks  
 **Purpose**: One beautiful page showcasing local AI model performance  
 **Timeline**: 1 week to launch  
 
@@ -178,6 +178,13 @@ Chart 2: Quality Distribution
 
 ---
 
+### Section 6: Footer
+```
+Built with Next.js + Postgres
+Benchmarks run monthly on local hardware
+Last updated: Oct 2025
+
+[GitHub] [LinkedIn] [Back to gtabhishek.com]
 ```
 
 ---
@@ -287,6 +294,7 @@ ai-benchmark-page/
 │   │   ├── PerformanceMatrix.tsx
 │   │   ├── Charts.tsx
 │   │   ├── Methodology.tsx
+│   │   └── Footer.tsx
 │   ├── modals/
 │   │   └── ResponseModal.tsx
 │   └── ui/                       # shadcn components
@@ -348,6 +356,7 @@ Page sections (vertical scroll):
 3. Performance Matrix - Filterable table with color-coded scores
 4. Charts - 2 responsive charts (bar + radar)
 5. Methodology - Expandable accordion sections
+6. Footer
 
 Key features:
 - Click table cell → Modal with full benchmark details

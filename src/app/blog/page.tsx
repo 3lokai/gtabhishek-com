@@ -10,7 +10,7 @@ export default function BlogIndex() {
   return (
     <PageShell>
       <section className="container mx-auto px-4 py-16">
-        <h1 className="heading-1-lg">Blog</h1>
+        <h1 className="font-bold text-3xl tracking-tight md:text-5xl">Blog</h1>
         <p className="mt-2 text-muted-foreground">
           Notes on growth, systems, and coffee.
         </p>
@@ -22,7 +22,7 @@ export default function BlogIndex() {
               key={post.slug}
             >
               <header className="space-y-2">
-                <h2 className="heading-2-card">
+                <h2 className="font-semibold text-xl">
                   <Link className="hover:underline" href={post.permalink}>
                     {post.title}
                   </Link>

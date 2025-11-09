@@ -58,7 +58,7 @@ export function CollaborationsSection() {
       </div>
 
       <div className="space-y-4 text-center md:space-y-6">
-        <h2 className="heading-2">
+        <h2 className="font-bold text-3xl tracking-tight md:text-4xl">
           Collaborations & Opportunities
         </h2>
         <p className="mx-auto max-w-2xl text-base text-muted-foreground md:text-lg">
