@@ -1,9 +1,13 @@
 "use client";
 
-import { ArrowRight, Mail } from "lucide-react";
+import { ArrowRight, Briefcase, Mail } from "lucide-react";
 import Link from "next/link";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
+import {
+  Announcement,
+  AnnouncementShinyText,
+} from "@/components/ui/shadcn-io/announcement";
 import { AuroraText } from "../ui/aurora-text";
 
 export const CTA = () => {
@@ -19,6 +23,15 @@ export const CTA = () => {
         }}
       />
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center space-y-8 text-center">
+        <Announcement
+          className="border-primary/20 bg-primary/10 px-4 py-2"
+          variant="secondary"
+        >
+          <Briefcase className="mr-2 h-4 w-4" />
+          <AnnouncementShinyText>
+            Currently employed full time at Publicis Sapient
+          </AnnouncementShinyText>
+        </Announcement>
         <h2 className="font-bold font-serif text-4xl text-foreground leading-tight md:text-6xl">
           Ready to <AuroraText>Collaborate?</AuroraText>
         </h2>
