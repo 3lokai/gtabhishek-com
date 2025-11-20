@@ -1,0 +1,29 @@
+import { cn } from "@/lib/utils";
+
+export function HexagonIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={cn("h-6 w-6", className)}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>GTabhishek.com Logo</title>
+      <path d="M12 2L2 7L2 17L12 22L22 17L22 7L12 2Z" />
+    </svg>
+  );
+}
+
+export function MediumIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      className={cn("h-5 w-5", className)}
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <title>Medium</title>
+      <path d="M13.54 12a6.8 6.8 0 01-6.77 6.82A6.8 6.8 0 010 12a6.8 6.8 0 016.77-6.82A6.8 6.8 0 0113.54 12zM20.96 12c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z" />
+    </svg>
+  );
+}

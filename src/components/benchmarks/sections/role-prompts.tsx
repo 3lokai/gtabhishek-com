@@ -184,10 +184,12 @@ export function RolePrompts() {
   }
 
   return (
-    <section className="container mx-auto px-4 py-20 md:py-32">
-      <div className="mb-12 text-center">
-        <h2 className="heading-2">What I Actually Test</h2>
-        <p className="mt-4 text-lg text-muted-foreground">
+    <section className="mx-auto max-w-7xl px-4 py-20 md:py-32">
+      <div className="mb-12 text-center md:mb-16">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
+          What I Actually Test
+        </h2>
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
           These aren&apos;t toy examples. These are real professional tasks with
           objective scoring.
         </p>

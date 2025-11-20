@@ -1,8 +1,18 @@
 "use client";
 
+import {
+  Activity,
+  Bot,
+  Coffee,
+  FlaskConical,
+  Image as ImageIcon,
+  Puzzle,
+  Server,
+} from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -11,7 +21,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { cn } from "@/lib/utils";
 
 type Item = {
   id: string;
@@ -32,7 +41,7 @@ const ITEMS: Item[] = [
     title: "AI Studio",
     blurb: "Local LLM chat on RTX 3060 (Ollama)",
     href: "/ai",
-    icon: <span>🤖</span>,
+    icon: <Bot className="h-5 w-5" />,
     group: "running",
     kumaId: "AI Studio",
   },
@@ -41,7 +50,7 @@ const ITEMS: Item[] = [
     title: "Ops Lab",
     blurb: "Self-hosted dashboards & services",
     href: "/ops",
-    icon: <span>🧭</span>,
+    icon: <Server className="h-5 w-5" />,
     group: "running",
     kumaId: "Ops Lab",
   },
@@ -50,7 +59,7 @@ const ITEMS: Item[] = [
     title: "System Status",
     blurb: "Uptime across infrastructure",
     href: "https://status.gtabhishek.com",
-    icon: <span>📈</span>,
+    icon: <Activity className="h-5 w-5" />,
     group: "running",
     kumaId: "Status Page",
   },
@@ -59,7 +68,7 @@ const ITEMS: Item[] = [
     title: "Photos",
     blurb: "Self-hosted family photo vault",
     href: "/photos",
-    icon: <span>🖼️</span>,
+    icon: <ImageIcon className="h-5 w-5" />,
     group: "running",
     kumaId: "Photos",
   },
@@ -69,7 +78,7 @@ const ITEMS: Item[] = [
     title: "IndianCoffeeBeans.com",
     blurb: "Specialty coffee directory + scraping + search",
     href: "/projects/icb",
-    icon: <span>☕</span>,
+    icon: <Coffee className="h-5 w-5" />,
     group: "building",
   },
   {
@@ -77,7 +86,7 @@ const ITEMS: Item[] = [
     title: "MAzeApp",
     blurb: "Family photo workflows + automations",
     href: "/projects/maze",
-    icon: <span>🧩</span>,
+    icon: <Puzzle className="h-5 w-5" />,
     group: "building",
   },
   {
@@ -85,7 +94,7 @@ const ITEMS: Item[] = [
     title: "AI Benchmark Lab",
     blurb: "Model perf tests on local hardware",
     href: "/projects/bench",
-    icon: <span>🧪</span>,
+    icon: <FlaskConical className="h-5 w-5" />,
     group: "building",
   },
 ];
@@ -251,9 +260,9 @@ function CardGrid({
               </CardHeader>
               <CardContent className="pb-6">
                 {item.group === "running" ? (
-                  <StatusPill status={resolveStatus(kuma, item.kumaId)} />
+                  <StatusBadge status={resolveStatus(kuma, item.kumaId)} />
                 ) : (
-                  <SoonPill />
+                  <Badge variant="secondary">Coming soon</Badge>
                 )}
               </CardContent>
             </Card>
@@ -274,38 +283,28 @@ function resolveStatus(
   return kuma[key] ?? "unknown";
 }
 
-function StatusPill({ status }: { status: "up" | "down" | "unknown" }) {
-  let color: string;
+function StatusBadge({ status }: { status: "up" | "down" | "unknown" }) {
   if (status === "up") {
-    color = "bg-chart-2";
-  } else if (status === "down") {
-    color = "bg-destructive";
-  } else {
-    color = "bg-muted-foreground/50";
+    return (
+      <Badge className="gap-1.5" variant="outline">
+        <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+        Online
+      </Badge>
+    );
   }
-
-  let label: string;
-  if (status === "up") {
-    label = "Online";
-  } else if (status === "down") {
-    label = "Down";
-  } else {
-    label = "Unknown";
+  if (status === "down") {
+    return (
+      <Badge className="gap-1.5" variant="destructive">
+        <span className="h-2 w-2 rounded-full bg-white" />
+        Down
+      </Badge>
+    );
   }
   return (
-    <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-3 py-1 text-muted-foreground text-xs">
-      <span className={cn("h-2.5 w-2.5 rounded-full", color)} />
-      <span>{label}</span>
-    </div>
-  );
-}
-
-function SoonPill() {
-  return (
-    <div className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-muted/30 px-3 py-1 text-muted-foreground text-xs">
-      <span className="h-2.5 w-2.5 rounded-full bg-chart-4" />
-      <span>Coming soon</span>
-    </div>
+    <Badge className="gap-1.5" variant="secondary">
+      <span className="h-2 w-2 rounded-full bg-muted-foreground" />
+      Unknown
+    </Badge>
   );
 }
 

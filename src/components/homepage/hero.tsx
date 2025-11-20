@@ -68,7 +68,7 @@ export const Hero = () => {
           </Button>
 
           <Button
-            className="border-primary/30 transition-smooth hover:bg-primary/10"
+            className="transition-smooth hover:bg-primary/10"
             onClick={scrollToSystems}
             size="lg"
             variant="outline"

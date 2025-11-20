@@ -371,10 +371,10 @@ function PathUnderlay({ count }: PathUnderlayProps) {
     >
       <title>Career journey path</title>
       <motion.path
+        className="stroke-muted-foreground/30"
         d={d}
         fill="none"
         initial={{ pathLength: 0 }}
-        stroke="hsl(240 5% 60% / 0.35)"
         strokeWidth="2"
         transition={{ duration: 1.2, ease: "easeInOut" }}
         viewport={{ amount: 0.6, once: true }}
@@ -382,10 +382,10 @@ function PathUnderlay({ count }: PathUnderlayProps) {
       />
       {/* soft glow */}
       <motion.path
+        className="stroke-muted-foreground/15"
         d={d}
         fill="none"
         initial={{ pathLength: 0 }}
-        stroke="hsl(240 5% 60% / 0.15)"
         strokeLinecap="round"
         strokeWidth="8"
         transition={{ duration: 1.2, ease: "easeInOut", delay: 0.1 }}

@@ -39,12 +39,12 @@ export function Charts() {
   };
 
   return (
-    <section className="container mx-auto px-4 py-20 md:py-32">
-      <div className="mb-12 text-center">
-        <h2 className="heading-2">
+    <section className="mx-auto max-w-7xl px-4 py-20 md:py-32">
+      <div className="mb-12 text-center md:mb-16">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
           Visual Insights
         </h2>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
           Performance comparisons across models
         </p>
       </div>
@@ -57,9 +57,7 @@ export function Charts() {
           initial={{ opacity: 0, y: 30 }}
           transition={{ delay: 0.1 }}
         >
-          <h3 className="heading-3-centered">
-            Response Time Comparison
-          </h3>
+          <h3 className="heading-3-centered">Response Time Comparison</h3>
           {isLoading && (
             <div className="flex h-[300px] items-center justify-center">
               Loading...
@@ -102,9 +100,7 @@ export function Charts() {
           initial={{ opacity: 0, y: 30 }}
           transition={{ delay: 0.2 }}
         >
-          <h3 className="heading-3-centered">
-            Quality Distribution
-          </h3>
+          <h3 className="heading-3-centered">Quality Distribution</h3>
           {isLoading && (
             <div className="flex h-[300px] items-center justify-center">
               Loading...

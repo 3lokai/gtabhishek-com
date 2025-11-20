@@ -100,7 +100,7 @@ export function QuickWinners() {
 
   return (
     <section
-      className="container mx-auto px-4 py-20 md:py-32"
+      className="mx-auto max-w-7xl px-4 py-20 md:py-32"
       id="quick-winners"
     >
       <motion.div

@@ -165,14 +165,14 @@ export function PerformanceMatrix({ onCellClick }: PerformanceMatrixProps) {
 
   return (
     <section
-      className="container mx-auto px-4 py-20 md:py-32"
+      className="mx-auto max-w-7xl px-4 py-20 md:py-32"
       id="performance-matrix"
     >
-      <div className="mb-8 text-center">
-        <h2 className="heading-2">
+      <div className="mb-12 text-center md:mb-16">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
           Performance Matrix
         </h2>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
           Model performance across different roles
         </p>
       </div>

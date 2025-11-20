@@ -81,7 +81,7 @@ export function Hero() {
       <Spotlight />
       <div className="relative z-10 flex w-full max-w-4xl flex-col items-center justify-center space-y-8 md:space-y-12">
         {/* Main Heading */}
-        <h1 className="heading-1-hero">
+        <h1 className="text-center font-bold font-serif text-5xl text-foreground leading-tight md:mb-10 md:text-7xl lg:text-7xl">
           <span className="whitespace-nowrap">
             <AuroraText>AI Benchmark Lab</AuroraText>
           </span>

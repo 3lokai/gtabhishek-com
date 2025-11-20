@@ -135,12 +135,12 @@ const faqItems = [
 
 export function FAQ() {
   return (
-    <section className="container mx-auto px-4 py-20 md:py-32">
-      <div className="mb-12 text-center">
-        <h2 className="heading-2">
+    <section className="mx-auto max-w-7xl px-4 py-20 md:py-32">
+      <div className="mb-12 text-center md:mb-16">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
           Frequently Asked Questions
         </h2>
-        <p className="mt-4 text-lg text-muted-foreground">
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
           Learn more about the benchmark methodology
         </p>
       </div>

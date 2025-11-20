@@ -24,7 +24,7 @@ const navigationItems = [
     link: "/vibe-coding",
     children: [
       { name: "Local Setup", link: "/vibe-coding/local-setup" },
-      { name: "Local LLMs", link: "/vibe-coding/local-llms" },
+      { name: "AI Lab", link: "/vibe-coding/ai-labs" },
       { name: "Projects", link: "/vibe-coding/projects" },
     ],
   },

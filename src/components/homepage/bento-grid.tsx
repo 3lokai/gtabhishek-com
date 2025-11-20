@@ -1,6 +1,14 @@
 "use client";
 
-// Next.js App Router + FM v11:
+import {
+  Activity,
+  Briefcase,
+  Coffee,
+  Cpu,
+  FileText,
+  PenTool,
+  Wrench,
+} from "lucide-react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import { useCallback } from "react";
@@ -198,6 +206,15 @@ function BentoCard({
 export function BentoGrid() {
   return (
     <section className="container mx-auto px-4 py-20 md:py-32">
+      <div className="mb-12 text-center md:mb-16">
+        <h2 className="font-extrabold text-3xl tracking-tight md:text-5xl lg:text-6xl">
+          My Playground
+        </h2>
+        <p className="mt-4 text-base text-muted-foreground md:text-lg">
+          The tools, projects and work that make up the whole
+        </p>
+      </div>
+
       <motion.div
         animate="visible"
         className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-6"
@@ -217,7 +234,7 @@ export function BentoGrid() {
           colSpan={2}
           description="B2B marketing leader. Growth ops. AI-driven automation."
           href="/work"
-          icon={<span>👔</span>}
+          icon={<Briefcase className="h-6 w-6" />}
           index={0}
           rowSpan={2}
           title="Professional"
@@ -260,7 +277,7 @@ export function BentoGrid() {
           colSpan={1}
           description="IndianCoffeeBeans • Second Brain • Financial OS • n8n automations"
           href="/projects"
-          icon={<span>🛠️</span>}
+          icon={<Wrench className="h-6 w-6" />}
           index={1}
           rowSpan={2}
           title="Vibe Projects"
@@ -298,7 +315,7 @@ export function BentoGrid() {
         <BentoCard
           description="Ollama • Docker • Supabase • Qdrant • Postgres • n8n"
           href="/stack"
-          icon={<span>🖥️</span>}
+          icon={<Cpu className="h-6 w-6" />}
           index={2}
           title="Local AI setup"
         >
@@ -311,7 +328,7 @@ export function BentoGrid() {
         <BentoCard
           description="Notes on growth, systems, and coffee"
           href="/writing"
-          icon={<span>✍️</span>}
+          icon={<PenTool className="h-6 w-6" />}
           index={3}
           title="Writing"
         >
@@ -346,7 +363,7 @@ export function BentoGrid() {
         <BentoCard
           description="Status from n8n webhooks"
           href="/status"
-          icon={<span>🟢</span>}
+          icon={<Activity className="h-6 w-6" />}
           index={4}
           title="Known tech stack"
         >
@@ -380,7 +397,7 @@ export function BentoGrid() {
         <BentoCard
           description="Family, brews, and tinker logs"
           href="/life"
-          icon={<span>☕</span>}
+          icon={<Coffee className="h-6 w-6" />}
           index={5}
           title="Life / Coffee"
         >
@@ -394,7 +411,7 @@ export function BentoGrid() {
           colSpan={2}
           description="Reusable workflows and templates"
           href="/playbooks"
-          icon={<span>📋</span>}
+          icon={<FileText className="h-6 w-6" />}
           index={6}
           rowSpan={1}
           title="Playbooks and templates"
