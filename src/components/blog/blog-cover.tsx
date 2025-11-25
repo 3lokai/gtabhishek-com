@@ -80,10 +80,10 @@ export function BlogCover({
         className="absolute inset-0 bg-gradient-to-t from-accent/10 via-transparent to-transparent"
       />
 
-      {/* Inner vignette - soft dark edges (2-4% black) */}
+      {/* Inner vignette - soft dark edges (2-4% black) - uses foreground color for design system consistency */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(0,0,0,0.04)_100%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,var(--foreground)_100%)] opacity-[0.04]"
       />
 
       {/* Optional caption/credit */}

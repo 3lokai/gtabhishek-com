@@ -13,10 +13,12 @@ export function GET(request: Request) {
       "A modern Next.js starter with TypeScript, Tailwind CSS, shadcn/ui, and Supabase";
     const theme = searchParams.get("theme") || "light";
 
-    // Determine colors based on theme
-    const bgColor = theme === "dark" ? "#0a0a0a" : "#ffffff";
-    const textColor = theme === "dark" ? "#ffffff" : "#000000";
-    const accentColor = theme === "dark" ? "#3b82f6" : "#2563eb";
+    // Determine colors based on theme (matching design system oklch colors)
+    // Dark: background oklch(0.22 0.015 260), foreground oklch(0.92 0.015 260), primary oklch(0.72 0.08 260)
+    // Light: background oklch(0.99 0.00 260), foreground oklch(0.24 0.015 260), primary oklch(0.65 0.08 260)
+    const bgColor = theme === "dark" ? "#383A4A" : "#FCFCFC";
+    const textColor = theme === "dark" ? "#EBEBF0" : "#3D3F4A";
+    const accentColor = theme === "dark" ? "#5B8FD9" : "#4A7BC4"; // Primary color from design system
 
     return new ImageResponse(
       <div
@@ -29,7 +31,9 @@ export function GET(request: Request) {
           justifyContent: "center",
           backgroundColor: bgColor,
           backgroundImage:
-            "linear-gradient(45deg, #f0f0f0 25%, transparent 25%), linear-gradient(-45deg, #f0f0f0 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #f0f0f0 75%), linear-gradient(-45deg, transparent 75%, #f0f0f0 75%)",
+            theme === "dark"
+              ? "linear-gradient(45deg, #4D4F5C 25%, transparent 25%), linear-gradient(-45deg, #4D4F5C 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #4D4F5C 75%), linear-gradient(-45deg, transparent 75%, #4D4F5C 75%)"
+              : "linear-gradient(45deg, #E1E2E5 25%, transparent 25%), linear-gradient(-45deg, #E1E2E5 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #E1E2E5 75%), linear-gradient(-45deg, transparent 75%, #E1E2E5 75%)",
           backgroundSize: "20px 20px",
           backgroundPosition: "0 0, 0 10px, 10px -10px, -10px 0px",
           opacity: theme === "dark" ? 0.1 : 0.05,
@@ -47,7 +51,7 @@ export function GET(request: Request) {
             padding: "40px",
             backgroundColor: bgColor,
             borderRadius: "20px",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)", // Using shadow-2xl equivalent
           }}
         >
           {/* Logo/Brand */}
@@ -72,7 +76,7 @@ export function GET(request: Request) {
             >
               <span
                 style={{
-                  color: "white",
+                  color: "#FFFFFF", // Primary foreground color equivalent
                   fontSize: "24px",
                   fontWeight: "bold",
                 }}
@@ -142,7 +146,7 @@ export function GET(request: Request) {
                 key={tech}
                 style={{
                   backgroundColor: accentColor,
-                  color: "white",
+                  color: "#FFFFFF", // Primary foreground color equivalent
                   padding: "8px 16px",
                   borderRadius: "20px",
                   fontSize: "16px",

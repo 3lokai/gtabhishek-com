@@ -12,7 +12,7 @@ import {
   AnnouncementShinyText,
 } from "@/components/ui/shadcn-io/announcement";
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 const pillars = [
   {

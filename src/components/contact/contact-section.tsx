@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 // Email validation regex - defined at top level for performance
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

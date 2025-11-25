@@ -113,10 +113,11 @@ export const BackgroundBeams = React.memo(
                   delay: Math.random() * 10,
                 }}
               >
-                <stop stopColor="#18CCFC" stopOpacity="0" />
-                <stop stopColor="#18CCFC" />
-                <stop offset="32.5%" stopColor="#6344F5" />
-                <stop offset="100%" stopColor="#AE48FF" stopOpacity="0" />
+                {/* Colors match design system: primary oklch(0.72 0.08 260) ≈ #5B8FD9, accent oklch(0.60 0.10 260) */}
+                <stop stopColor="#5B8FD9" stopOpacity="0" />
+                <stop stopColor="#5B8FD9" />
+                <stop offset="32.5%" stopColor="#4F7BC4" />
+                <stop offset="100%" stopColor="#476BB0" stopOpacity="0" />
               </motion.linearGradient>
             ))}
 
@@ -128,9 +129,10 @@ export const BackgroundBeams = React.memo(
               id="paint0_radial_242_278"
               r="1"
             >
-              <stop offset="0.0666667" stopColor="#d4d4d4" />
-              <stop offset="0.243243" stopColor="#d4d4d4" />
-              <stop offset="0.43594" stopColor="white" stopOpacity="0" />
+              {/* Colors match design system: muted oklch(0.28 0.015 260) ≈ #4D4F5C, foreground oklch(0.92 0.015 260) ≈ white */}
+              <stop offset="0.0666667" stopColor="#4D4F5C" />
+              <stop offset="0.243243" stopColor="#4D4F5C" />
+              <stop offset="0.43594" stopColor="#FFFFFF" stopOpacity="0" />
             </radialGradient>
           </defs>
         </svg>

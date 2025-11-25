@@ -115,16 +115,16 @@ export async function submitContactForm(formData: FormData) {
       subject: `New Contact Form Submission from ${name}`,
       html: `
         <div style="font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #1a1a1a; border-bottom: 2px solid #8b5cf6; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: 600;">
+          <h2 style="color: #EBEBF0; border-bottom: 2px solid #5B8FD9; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: 600;">
             New Contact Form Submission
           </h2>
-          <div style="background: #f8f9fa; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid #e5e7eb;">
-            <p style="margin: 10px 0; color: #374151; font-size: 14px;"><strong style="color: #1a1a1a;">Name:</strong> ${name}</p>
-            <p style="margin: 10px 0; color: #374151; font-size: 14px;"><strong style="color: #1a1a1a;">Email:</strong> <a href="mailto:${email}" style="color: #8b5cf6; text-decoration: none;">${email}</a></p>
-            <p style="margin: 10px 0; color: #374151; font-size: 14px;"><strong style="color: #1a1a1a;">Message:</strong></p>
-            <p style="background: white; padding: 15px; border-radius: 12px; white-space: pre-wrap; color: #1a1a1a; font-size: 14px; line-height: 1.6; margin-top: 10px; border: 1px solid #e5e7eb;">${message}</p>
+          <div style="background: #464850; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid #4D4F5C;">
+            <p style="margin: 10px 0; color: #B8B9C0; font-size: 14px;"><strong style="color: #EBEBF0;">Name:</strong> ${name}</p>
+            <p style="margin: 10px 0; color: #B8B9C0; font-size: 14px;"><strong style="color: #EBEBF0;">Email:</strong> <a href="mailto:${email}" style="color: #5B8FD9; text-decoration: none;">${email}</a></p>
+            <p style="margin: 10px 0; color: #B8B9C0; font-size: 14px;"><strong style="color: #EBEBF0;">Message:</strong></p>
+            <p style="background: #383A4A; padding: 15px; border-radius: 12px; white-space: pre-wrap; color: #EBEBF0; font-size: 14px; line-height: 1.6; margin-top: 10px; border: 1px solid #4D4F5C;">${message}</p>
           </div>
-          <p style="color: #6b7280; font-size: 12px; margin-top: 20px; line-height: 1.5;">
+          <p style="color: #B8B9C0; font-size: 12px; margin-top: 20px; line-height: 1.5;">
             You can reply directly to this email to respond to ${name}.
           </p>
         </div>
@@ -138,19 +138,19 @@ export async function submitContactForm(formData: FormData) {
       subject: "Thank you for contacting me!",
       html: `
         <div style="font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-          <h2 style="color: #1a1a1a; border-bottom: 2px solid #8b5cf6; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: 600;">
+          <h2 style="color: #EBEBF0; border-bottom: 2px solid #5B8FD9; padding-bottom: 10px; margin-bottom: 20px; font-size: 24px; font-weight: 600;">
             Thank You, ${name}!
           </h2>
-          <p style="color: #6b7280; line-height: 1.6; font-size: 14px; margin-bottom: 20px;">
+          <p style="color: #B8B9C0; line-height: 1.6; font-size: 14px; margin-bottom: 20px;">
             I've received your message and will get back to you as soon as possible.
           </p>
-          <div style="background: #f8f9fa; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid #e5e7eb;">
-            <p style="margin: 0; color: #1a1a1a; font-size: 14px; font-weight: 600;"><strong>Your Message:</strong></p>
-            <p style="background: white; padding: 15px; border-radius: 12px; white-space: pre-wrap; margin-top: 10px; color: #1a1a1a; font-size: 14px; line-height: 1.6; border: 1px solid #e5e7eb;">${message}</p>
+          <div style="background: #464850; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid #4D4F5C;">
+            <p style="margin: 0; color: #EBEBF0; font-size: 14px; font-weight: 600;"><strong>Your Message:</strong></p>
+            <p style="background: #383A4A; padding: 15px; border-radius: 12px; white-space: pre-wrap; margin-top: 10px; color: #EBEBF0; font-size: 14px; line-height: 1.6; border: 1px solid #4D4F5C;">${message}</p>
           </div>
-          <p style="color: #6b7280; line-height: 1.6; margin-top: 20px; font-size: 14px;">
+          <p style="color: #B8B9C0; line-height: 1.6; margin-top: 20px; font-size: 14px;">
             Best regards,<br>
-            <strong style="color: #1a1a1a;">GT Abhishek</strong>
+            <strong style="color: #EBEBF0;">GT Abhishek</strong>
           </p>
         </div>
       `,

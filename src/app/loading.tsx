@@ -1,4 +1,4 @@
-import { Spinner } from "@/components/ui/spinner";
+import { UILoader } from "@/components/ui/ui-loader";
 
 export default function Loading() {
   return (
@@ -11,7 +11,7 @@ export default function Loading() {
           </p>
         </div>
         <div className="flex justify-center">
-          <Spinner className="h-8 w-8" />
+          <UILoader />
         </div>
       </div>
     </div>

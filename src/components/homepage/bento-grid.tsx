@@ -37,7 +37,7 @@ type BentoCardProps = {
   index?: number; // for stagger animation
 };
 
-const MotionCard = motion(Card);
+const MotionCard = motion.create(Card);
 
 function BentoCard({
   title,
