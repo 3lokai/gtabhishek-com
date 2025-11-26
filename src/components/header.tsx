@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 import { buttonVariants } from "@/components/ui/button";
+import { Logo } from "@/components/ui/logo";
 import {
   MobileNav,
   MobileNavDropdown,
@@ -40,10 +41,11 @@ export function Header() {
     <Navbar className="top-0">
       <NavBody>
         <Link
-          className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 font-normal text-foreground text-sm"
+          className="relative z-20 mr-4 flex items-center gap-2 px-2 py-1 font-normal text-foreground text-sm"
           href="/"
         >
-          <span className="font-bold">GT</span>
+          <Logo size="sm" />
+          <span className="font-bold">Abhishek</span>
         </Link>
         <NavItems items={navigationItems} />
         <div className="relative z-20 flex items-center gap-2">
@@ -59,10 +61,11 @@ export function Header() {
       <MobileNav>
         <MobileNavHeader>
           <Link
-            className="relative z-20 mr-4 flex items-center space-x-2 px-2 py-1 font-normal text-foreground text-sm"
+            className="relative z-20 mr-4 flex items-center gap-2 px-2 py-1 font-normal text-foreground text-sm"
             href="/"
           >
-            <span className="font-bold">GT</span>
+            <Logo size="sm" />
+            <span className="font-bold">Abhishek</span>
           </Link>
           <div className="flex items-center gap-2">
             <NavbarButton

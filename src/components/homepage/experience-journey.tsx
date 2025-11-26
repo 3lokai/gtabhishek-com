@@ -5,6 +5,7 @@ import { motion } from "motion/react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { ShineBorder } from "@/components/ui/shine-border";
 import { journey } from "@/data/journey";
 import { cn } from "@/lib/utils";
 
@@ -115,9 +116,10 @@ export default function ExperienceJourney() {
         <div
           className={cn(
             "relative",
-            "overflow-x-auto overflow-y-hidden",
+            "overflow-x-auto overflow-y-visible",
             "snap-x snap-mandatory",
             "scroll-p-6",
+            "py-8",
             "[scrollbar-width:none]",
             "[-ms-overflow-style:none]",
             "[&::-webkit-scrollbar]:hidden"
@@ -153,7 +155,8 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
       className={cn(
         "snap-center",
         "relative w-[78vw] sm:w-[60vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw]",
-        "shrink-0 rounded-2xl border border-border/50",
+        "shrink-0 rounded-2xl",
+        index === 0 ? "border-0" : "border border-border",
         "bg-gradient-to-b from-card/40 to-card/20 backdrop-blur-sm",
         "p-5 md:p-6",
         "group transition-all hover:border-accent hover:bg-accent/5 hover:shadow-lg"
@@ -218,6 +221,15 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
           opacity: 1,
         }}
       />
+      {/* Shine border effect - only on first card */}
+      {index === 0 && (
+        <ShineBorder
+          borderWidth={2}
+          className="z-[1]"
+          duration={14}
+          shineColor="var(--accent)"
+        />
+      )}
       {/* Node pin on the path */}
       <motion.span
         aria-hidden

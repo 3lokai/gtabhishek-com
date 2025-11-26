@@ -1,6 +1,7 @@
 import { Instagram, Linkedin, Twitter } from "lucide-react";
 import Link from "next/link";
-import { HexagonIcon, MediumIcon } from "@/components/icons";
+import { MediumIcon } from "@/components/icons";
+import { Logo } from "@/components/ui/logo";
 
 type FooterLink = {
   name: string;
@@ -53,8 +54,8 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand Identity */}
-          <div className="flex items-center space-x-2 lg:col-span-1">
-            <HexagonIcon className="h-6 w-6 text-foreground" />
+          <div className="flex items-center gap-2 lg:col-span-1">
+            <Logo size="sm" />
             <Link
               className="font-semibold text-foreground text-sm transition-colors hover:text-primary"
               href="/"

@@ -287,7 +287,7 @@ function StatusBadge({ status }: { status: "up" | "down" | "unknown" }) {
   if (status === "up") {
     return (
       <Badge className="gap-1.5" variant="outline">
-        <span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
+        <span className="h-2 w-2 animate-pulse rounded-full bg-chart-4" />
         Online
       </Badge>
     );

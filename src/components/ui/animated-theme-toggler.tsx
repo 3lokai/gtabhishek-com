@@ -1,6 +1,7 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
 
@@ -16,23 +17,13 @@ export const AnimatedThemeToggler = ({
   duration = 400,
   ...props
 }: AnimatedThemeTogglerProps) => {
-  const [isDark, setIsDark] = useState(false);
+  const { setTheme, resolvedTheme } = useTheme();
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const [mounted, setMounted] = useState(false);
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
-    const updateTheme = () => {
-      setIsDark(document.documentElement.classList.contains("dark"));
-    };
-
-    updateTheme();
-
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-
-    return () => observer.disconnect();
+    setMounted(true);
   }, []);
 
   const toggleTheme = useCallback(async () => {
@@ -40,12 +31,11 @@ export const AnimatedThemeToggler = ({
       return;
     }
 
+    const newTheme = isDark ? "light" : "dark";
+
     await document.startViewTransition(() => {
       flushSync(() => {
-        const newTheme = !isDark;
-        setIsDark(newTheme);
-        document.documentElement.classList.toggle("dark");
-        localStorage.setItem("theme", newTheme ? "dark" : "light");
+        setTheme(newTheme);
       });
     }).ready;
 
@@ -71,7 +61,22 @@ export const AnimatedThemeToggler = ({
         pseudoElement: "::view-transition-new(root)",
       }
     );
-  }, [isDark, duration]);
+  }, [isDark, setTheme, duration]);
+
+  if (!mounted) {
+    return (
+      <button
+        className={cn(className)}
+        ref={buttonRef}
+        {...props}
+        aria-label="Toggle theme"
+        disabled
+      >
+        <Moon className="opacity-0" />
+        <span className="sr-only">Toggle theme</span>
+      </button>
+    );
+  }
 
   return (
     <button

@@ -15,9 +15,9 @@ export const AuroraText = memo(
     children,
     className = "",
     colors = [
+      "var(--accent)",
       "var(--primary)",
       "var(--accent)",
-      "var(--chart-1)",
       "var(--chart-2)",
     ],
     speed = 1,
