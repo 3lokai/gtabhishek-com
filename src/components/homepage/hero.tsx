@@ -45,7 +45,7 @@ export const Hero = () => {
         <div className="flex flex-col items-center gap-4 text-center text-foreground text-lg md:text-xl">
           <div className="flex items-center gap-4">
             <span>Hello, I&apos;m</span>
-            <AvatarWavePill label="GT Abhishek" src="/profile.jpg" wave="👋" />
+            <AvatarWavePill label="GT Abhishek" src="/Thrilok.jpeg" wave="👋" />
           </div>
           <span>I build with intuition, ship with precision.</span>
         </div>
