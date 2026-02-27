@@ -26,7 +26,7 @@ export const Hero = () => {
         >
           <Construction className="mr-2 h-4 w-4" />
           <AnnouncementShinyText>
-            Under Construction — Live Systems Inside
+            WIP - Live Projects coming soon
           </AnnouncementShinyText>
         </Announcement>
 

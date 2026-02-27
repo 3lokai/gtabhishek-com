@@ -1,10 +1,13 @@
-import { NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_BASE_URL || "https://ai-trigger.gtabhishek.com";
 
-export async function GET({ params }: { params: { id: string } }) {
-  const { id } = params;
+export async function GET(
+  _request: NextRequest,
+  context: { params: Promise<{ id: string }> }
+) {
+  const { id } = await context.params;
   const url = `${API_BASE_URL}/api/benchmarks/${id}`;
 
   try {

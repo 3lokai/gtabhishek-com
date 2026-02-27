@@ -4,7 +4,6 @@ title: "Getting Started with Next.js 16"
 date: "2025-01-15"
 excerpt: "Learn how to build modern web applications with Next.js 16 and React 19, exploring the latest features and best practices."
 tags: ["nextjs", "react", "web development"]
-coverImage: ./cover.jpg
 ---
 
 # Getting Started with Next.js 16

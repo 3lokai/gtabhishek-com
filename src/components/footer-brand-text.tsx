@@ -13,10 +13,9 @@ export function FooterBrandText({ className }: FooterBrandTextProps) {
       <div className="mx-auto max-w-7xl px-4">
         <div className="h-32 md:h-40 lg:h-48">
           <TextHoverEffect
-            alwaysVisible
+            automatic={true}
             duration={0.15}
             text="GTabhishek.com"
-            viewBox="0 0 600 100"
           />
         </div>
       </div>
