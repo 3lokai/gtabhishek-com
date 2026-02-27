@@ -14,7 +14,10 @@ const contactFormSchema = z.object({
     .string()
     .min(10, "Message must be at least 10 characters")
     .max(1000),
-  honeypot: z.string().max(0, "Spam detected"),
+  honeypot: z.preprocess(
+    (val) => (val === null || val === undefined ? "" : val),
+    z.string().max(0, "Spam detected")
+  ),
 });
 
 async function sendSlackWebhook(name: string, email: string, message: string) {
