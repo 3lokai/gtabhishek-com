@@ -111,7 +111,7 @@ export async function submitContactForm(formData: FormData) {
     });
 
     // Send email to you (the site owner)
-    await resend.emails.send({
+    const { error: ownerEmailError } = await resend.emails.send({
       from: "GT Abhishek <hello@gtabhishek.com>",
       to: env.CONTACT_EMAIL,
       replyTo: email,
@@ -134,8 +134,16 @@ export async function submitContactForm(formData: FormData) {
       `,
     });
 
+    if (ownerEmailError) {
+      console.error("Resend (owner):", ownerEmailError);
+      return {
+        success: false,
+        error: "Email service error. Please try again or email us directly.",
+      };
+    }
+
     // Send confirmation email to the user
-    await resend.emails.send({
+    const { error: confirmationEmailError } = await resend.emails.send({
       from: "GT Abhishek <hello@gtabhishek.com>",
       to: email,
       subject: "Thank you for contacting me!",
@@ -159,6 +167,15 @@ export async function submitContactForm(formData: FormData) {
       `,
     });
 
+    if (confirmationEmailError) {
+      console.error("Resend (confirmation):", confirmationEmailError);
+      return {
+        success: false,
+        error:
+          "We couldn't send your message. Please try again or email us directly.",
+      };
+    }
+
     // Send Slack webhook
     await sendSlackWebhook(name, email, message);
 
@@ -168,9 +185,30 @@ export async function submitContactForm(formData: FormData) {
     };
   } catch (error) {
     console.error("Error processing contact form:", error);
+
+    const isPrismaError =
+      error instanceof Error &&
+      "code" in error &&
+      typeof (error as { code?: string }).code === "string" &&
+      (error as { code: string }).code.startsWith("P");
+
+    if (isPrismaError) {
+      return {
+        success: false,
+        error: "Could not save your message. Please try again.",
+      };
+    }
+
+    const genericMessage =
+      "Something went wrong. Please try again or email us directly.";
+    const devMessage =
+      process.env.NODE_ENV === "development" && error instanceof Error
+        ? `${genericMessage} (${error.message})`
+        : genericMessage;
+
     return {
       success: false,
-      error: "Failed to send message. Please try again later.",
+      error: devMessage,
     };
   }
 }
