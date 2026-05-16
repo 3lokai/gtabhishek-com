@@ -89,7 +89,7 @@ export default function ExperienceJourney() {
         {canScrollLeft && (
           <Button
             aria-label="Scroll left"
-            className="-translate-y-1/2 absolute top-1/2 left-0 z-30 rounded-full bg-background/80 p-2 shadow-lg backdrop-blur-sm transition-opacity hover:bg-background/90"
+            className="-translate-y-1/2 absolute top-1/2 left-0 z-30 hidden rounded-full bg-background/80 p-2 shadow-lg backdrop-blur-sm transition-opacity hover:bg-background/90 sm:inline-flex"
             onClick={scrollLeft}
             size="icon"
             type="button"
@@ -103,7 +103,7 @@ export default function ExperienceJourney() {
         {canScrollRight && (
           <Button
             aria-label="Scroll right"
-            className="-translate-y-1/2 absolute top-1/2 right-0 z-30 rounded-full bg-background/80 p-2 shadow-lg backdrop-blur-sm transition-opacity hover:bg-background/90"
+            className="-translate-y-1/2 absolute top-1/2 right-0 z-30 hidden rounded-full bg-background/80 p-2 shadow-lg backdrop-blur-sm transition-opacity hover:bg-background/90 sm:inline-flex"
             onClick={scrollRight}
             size="icon"
             type="button"
@@ -154,7 +154,7 @@ function JourneyCard({ stop, index }: JourneyCardProps) {
       aria-label={`${stop.company}, ${stop.role}, ${stop.period}`}
       className={cn(
         "snap-center",
-        "relative w-[78vw] sm:w-[60vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw]",
+        "relative w-[85vw] sm:w-[60vw] md:w-[42vw] lg:w-[34vw] xl:w-[28vw]",
         "shrink-0 rounded-2xl",
         index === 0 ? "border-0" : "border border-border",
         "bg-gradient-to-b from-card/40 to-card/20 backdrop-blur-sm",

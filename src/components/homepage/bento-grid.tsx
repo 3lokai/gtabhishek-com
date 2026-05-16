@@ -67,7 +67,7 @@ function BentoCard({
     <MotionCard
       animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
       className={cn(
-        "group relative flex min-h-[200px] flex-col overflow-hidden rounded-[1.25rem] border border-border/50 bg-gradient-to-b from-card/40 to-card/20 outline-none ring-primary/0 backdrop-blur-sm transition-all hover:border-accent hover:bg-accent/5 hover:shadow-lg focus-visible:ring-2",
+        "group relative flex flex-col overflow-hidden rounded-[1.25rem] border border-border/50 bg-gradient-to-b from-card/40 to-card/20 outline-none ring-primary/0 backdrop-blur-sm transition-all hover:border-accent hover:bg-accent/5 hover:shadow-lg focus-visible:ring-2 md:min-h-[200px]",
         // spans: each span = 4 columns in md breakpoint
         colSpan === 2 ? "md:col-span-8" : "md:col-span-4",
         rowSpan === 2

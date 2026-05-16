@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(Get-ChildItem -Path \"D:\\\\gtabhishek-com\\\\src\\\\app\" -Recurse -Filter \"page.tsx\" -File)",
+      "Bash(Select-Object FullName)"
+    ]
+  }
+}

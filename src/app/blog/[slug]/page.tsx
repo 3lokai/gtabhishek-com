@@ -129,7 +129,7 @@ export default async function BlogPostPage({
 
               {/* HTML string from s.markdown() */}
               <div
-                className="prose prose-invert prose-lg"
+                className="prose prose-base prose-invert md:prose-lg"
                 // biome-ignore lint/security/noDangerouslySetInnerHtml: <valid expression>
                 dangerouslySetInnerHTML={{ __html: processedContent }}
               />

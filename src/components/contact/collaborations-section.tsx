@@ -52,7 +52,7 @@ export function CollaborationsSection() {
       <div className="flex items-center justify-center">
         <Announcement className="border-border/50 bg-muted/30 px-4 py-1.5">
           <AnnouncementShinyText className="text-xs">
-            Currently at Publicis Sapient • Selective availability
+            Available for full time or part time collaborations
           </AnnouncementShinyText>
         </Announcement>
       </div>

@@ -179,7 +179,7 @@ export function PerformanceMatrix({ onCellClick }: PerformanceMatrixProps) {
 
       {/* Sticky Filter Bar */}
       <div className="sticky top-0 z-10 mb-6 rounded-lg border border-border/50 bg-background/80 p-4 backdrop-blur-sm">
-        <div className="flex flex-wrap items-center gap-4">
+        <div className="flex flex-col items-stretch gap-4 sm:flex-row sm:flex-wrap sm:items-center">
           <div className="flex items-center gap-2">
             <Filter className="h-4 w-4 text-muted-foreground" />
             <span className="font-medium text-sm">Filters:</span>
@@ -194,7 +194,7 @@ export function PerformanceMatrix({ onCellClick }: PerformanceMatrixProps) {
             }}
             value={selectedModel.length > 0 ? selectedModel[0] : "all"}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="All Models" />
             </SelectTrigger>
             <SelectContent>
@@ -216,7 +216,7 @@ export function PerformanceMatrix({ onCellClick }: PerformanceMatrixProps) {
             }}
             value={selectedRole.length > 0 ? selectedRole[0] : "all"}
           >
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px]">
               <SelectValue placeholder="All Roles" />
             </SelectTrigger>
             <SelectContent>
@@ -230,7 +230,7 @@ export function PerformanceMatrix({ onCellClick }: PerformanceMatrixProps) {
           </Select>
 
           {/* Score Range */}
-          <div className="flex min-w-[200px] flex-1 items-center gap-4">
+          <div className="flex w-full flex-1 items-center gap-4 sm:w-auto sm:min-w-[200px]">
             <span className="whitespace-nowrap text-muted-foreground text-sm">
               Score: {scoreRange[0].toFixed(1)} - {scoreRange[1].toFixed(1)}
             </span>
@@ -258,7 +258,7 @@ export function PerformanceMatrix({ onCellClick }: PerformanceMatrixProps) {
 
       {/* Matrix Table */}
       <div className="overflow-x-auto rounded-lg border border-border/50">
-        <Table>
+        <Table className="min-w-[640px] text-xs sm:text-sm">
           <TableHeader>
             <TableRow>
               <TableHead className="sticky left-0 z-10 min-w-[150px] bg-background">

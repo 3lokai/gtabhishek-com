@@ -10,8 +10,20 @@ export type JourneyStop = {
 
 export const journey: JourneyStop[] = [
   {
+    id: "encora",
+    period: "2026",
+    company: "Encora (acq. by Coforge)",
+    role: "Sr Director, Marketing Operations",
+    points: [
+      "Built affiliate lead channels from scratch — 18 leads in Month 1",
+      "Python + AI event outreach pipeline → 12 qualified meetings",
+      "Agentic marketing workflows; ROI dashboards across channels",
+    ],
+    href: "/work#encora",
+  },
+  {
     id: "ps",
-    period: "2022—Now",
+    period: "2022—2025",
     company: "Publicis Sapient",
     role: "Associate Director",
     points: [
@@ -65,4 +77,3 @@ export const journey: JourneyStop[] = [
     ],
   },
 ];
-

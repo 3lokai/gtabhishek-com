@@ -42,12 +42,11 @@ export function BlogCover({
       className={cn(
         "relative w-full overflow-hidden rounded-xl",
         "h-[180px] md:h-[32vh]",
+        "max-h-[280px] min-h-[160px] sm:max-h-[340px] sm:min-h-[180px] md:max-h-[420px]",
         className
       )}
       style={{
         aspectRatio: "16 / 9",
-        maxHeight: "420px",
-        minHeight: "180px",
       }}
     >
       {/* Image with optional Ken Burns animation */}
@@ -127,13 +126,12 @@ export function BlogCoverFallback({
       className={cn(
         "relative w-full overflow-hidden rounded-xl",
         "h-[180px] md:h-[32vh]",
+        "max-h-[280px] min-h-[160px] sm:max-h-[340px] sm:min-h-[180px] md:max-h-[420px]",
         "flex items-center justify-center",
         className
       )}
       style={{
         aspectRatio: "16 / 9",
-        maxHeight: "420px",
-        minHeight: "180px",
         backgroundColor: color,
       }}
     >

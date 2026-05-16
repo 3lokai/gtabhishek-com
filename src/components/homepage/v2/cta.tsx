@@ -29,7 +29,7 @@ export const CTAV2 = () => {
         >
           <Briefcase className="mr-2 h-4 w-4" />
           <AnnouncementShinyText>
-            Currently employed full time at Publicis Sapient
+            Open to full time or part time collaborations
           </AnnouncementShinyText>
         </Announcement>
         <h2 className="font-bold font-serif text-4xl text-foreground leading-tight md:text-6xl">

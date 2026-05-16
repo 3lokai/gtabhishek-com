@@ -31,7 +31,7 @@ export const Hero = () => {
         </Announcement>
 
         {/* Main Heading */}
-        <h1 className="text-center font-bold font-serif text-5xl text-foreground leading-tight md:mb-10 md:text-7xl lg:text-7xl">
+        <h1 className="text-center font-bold font-serif text-4xl text-foreground leading-tight sm:text-5xl md:mb-10 md:text-6xl lg:text-7xl">
           <span className="whitespace-nowrap">
             <AuroraText>Marketing Strategist</AuroraText> by Day,
           </span>

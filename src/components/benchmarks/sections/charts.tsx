@@ -59,12 +59,12 @@ export function Charts() {
         >
           <h3 className="heading-3-centered">Response Time Comparison</h3>
           {isLoading && (
-            <div className="flex h-[300px] items-center justify-center">
+            <div className="flex h-[220px] items-center justify-center sm:h-[260px] md:h-[300px]">
               Loading...
             </div>
           )}
           {!isLoading && responseTimeData.length === 0 && (
-            <div className="flex h-[300px] items-center justify-center text-muted-foreground">
+            <div className="flex h-[220px] items-center justify-center text-muted-foreground sm:h-[260px] md:h-[300px]">
               No data available
             </div>
           )}
@@ -102,12 +102,12 @@ export function Charts() {
         >
           <h3 className="heading-3-centered">Quality Distribution</h3>
           {isLoading && (
-            <div className="flex h-[300px] items-center justify-center">
+            <div className="flex h-[220px] items-center justify-center sm:h-[260px] md:h-[300px]">
               Loading...
             </div>
           )}
           {!isLoading && qualityData.length === 0 && (
-            <div className="flex h-[300px] items-center justify-center text-muted-foreground">
+            <div className="flex h-[220px] items-center justify-center text-muted-foreground sm:h-[260px] md:h-[300px]">
               No data available
             </div>
           )}

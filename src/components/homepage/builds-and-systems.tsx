@@ -324,7 +324,7 @@ function Marquee({
       <motion.div
         animate={animated ? { x: ["0%", "-50%"] } : undefined}
         aria-label="Tech stack"
-        className="flex gap-6 whitespace-nowrap will-change-transform hover:[animation-play-state:paused]"
+        className="flex gap-3 whitespace-nowrap will-change-transform sm:gap-4 md:gap-6 hover:[animation-play-state:paused]"
         initial={false}
         role="list"
         transition={

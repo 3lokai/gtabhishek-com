@@ -52,7 +52,7 @@ export function Footer() {
   return (
     <footer className="relative w-full border-border border-t bg-background">
       <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
           {/* Brand Identity */}
           <div className="flex items-center gap-2 lg:col-span-1">
             <Logo size="sm" />

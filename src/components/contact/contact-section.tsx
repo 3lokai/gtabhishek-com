@@ -114,8 +114,12 @@ export function ContactSection() {
       >
         <Tabs className="w-full" defaultValue="calendar">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="calendar">Schedule a Call</TabsTrigger>
-            <TabsTrigger value="email">Send Email</TabsTrigger>
+            <TabsTrigger className="text-xs sm:text-sm" value="calendar">
+              Schedule a Call
+            </TabsTrigger>
+            <TabsTrigger className="text-xs sm:text-sm" value="email">
+              Send Email
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent className="mt-6" value="calendar">
@@ -154,7 +158,7 @@ export function ContactSection() {
               </CardHeader>
 
               <CardContent className="relative z-20">
-                <div className="relative h-[600px] w-full overflow-hidden rounded-lg border border-border/50">
+                <div className="relative h-[500px] w-full overflow-hidden rounded-lg border border-border/50 sm:h-[550px] md:h-[600px]">
                   <iframe
                     className="h-full w-full bg-background [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                     scrolling="no"

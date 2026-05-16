@@ -26,7 +26,7 @@ export const HeroV2 = () => {
         </Announcement>
 
         {/* Main Hero */}
-        <h1 className="text-center font-bold font-serif text-5xl text-foreground leading-tight md:text-6xl lg:text-7xl">
+        <h1 className="text-center font-bold font-serif text-4xl text-foreground leading-tight sm:text-5xl md:text-6xl lg:text-7xl">
           I build <AuroraText>GTM systems</AuroraText> that turn
           <br />
           marketing into <AuroraText>pipeline</AuroraText>.
